@@ -1,14 +1,27 @@
-use crate::NodeId;
+use crate::{EdgeId, NodeId};
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Edge {
+    id: EdgeId,
     start: NodeId,
     end: NodeId,
 }
 
 impl Edge {
-    pub fn new(start: NodeId, end: NodeId) -> Self {
-        Self { start, end }
+    pub fn new(
+        id: EdgeId,
+        start: NodeId,
+        end: NodeId,
+    ) -> Self {
+        Self {
+            id,
+            start,
+            end,
+        }
+    }
+
+    pub fn id(&self) -> EdgeId {
+        self.id
     }
 
     pub fn start(&self) -> NodeId {
@@ -23,16 +36,17 @@ impl Edge {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::NodeId;
 
     #[test]
     fn create_edge() {
         let edge = Edge::new(
-            NodeId::new(0),
+            EdgeId::new(0),
             NodeId::new(1),
+            NodeId::new(2),
         );
 
-        assert_eq!(edge.start(), NodeId::new(0));
-        assert_eq!(edge.end(), NodeId::new(1));
+        assert_eq!(edge.id(), EdgeId::new(0));
+        assert_eq!(edge.start(), NodeId::new(1));
+        assert_eq!(edge.end(), NodeId::new(2));
     }
 }
