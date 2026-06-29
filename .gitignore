@@ -1,3 +1,9 @@
 /target
 **/target
+
+# Libraries generally don't commit Cargo.lock
 Cargo.lock
+
+# Editor settings
+.vscode/
+.idea/
