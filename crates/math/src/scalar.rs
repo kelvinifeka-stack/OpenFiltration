@@ -13,12 +13,19 @@ use std::ops::{Add, Div, Mul, Neg, Sub};
 pub struct Scalar(pub f64);
 
 impl Scalar {
+    /// Creates a new scalar.
     pub fn new(value: f64) -> Self {
         Self(value)
     }
 
+    /// Returns the underlying value.
     pub fn value(self) -> f64 {
         self.0
+    }
+
+    /// Square root.
+    pub fn sqrt(self) -> Self {
+        Self(self.0.sqrt())
     }
 }
 
