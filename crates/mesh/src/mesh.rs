@@ -49,6 +49,17 @@ impl Mesh {
     pub fn cell_count(&self) -> usize {
         self.cells.len()
     }
+
+    pub fn nodes(&self) -> &[Node] {
+        &self.nodes
+    }
+
+    pub fn clear(&mut self) {
+        self.nodes.clear();
+        self.edges.clear();
+        self.faces.clear();
+        self.cells.clear();
+    }
 }
 
 #[cfg(test)]
