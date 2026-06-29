@@ -1,7 +1,6 @@
-use math::{Point2, Scalar};
+use crate::{Cell, Edge, Face, Node};
 
-use crate::{Cell, Edge, Face, Node, NodeId};
-
+#[derive(Debug)]
 pub struct Mesh {
     nodes: Vec<Node>,
     edges: Vec<Edge>,
@@ -55,6 +54,8 @@ impl Mesh {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use math::{Point2, Scalar};
+    use crate::NodeId;
 
     #[test]
     fn create_mesh() {
