@@ -2,6 +2,7 @@
 resolver = "2"
 
 members = [
-    "crates/math",
     "app",
+    "crates/math",
+    "crates/mesh",
 ]

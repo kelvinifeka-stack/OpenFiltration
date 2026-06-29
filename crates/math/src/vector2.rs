@@ -1,4 +1,5 @@
 use crate::Scalar;
+
 use std::ops::{Add, Mul, Sub};
 
 /// A two-dimensional mathematical vector.
