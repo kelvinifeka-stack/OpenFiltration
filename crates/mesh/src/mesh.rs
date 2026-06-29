@@ -1,4 +1,13 @@
-use crate::{Cell, Edge, Face, Node};
+use math::{Point2, Scalar};
+
+use crate::{
+    Cell,
+    Connectivity,
+    Edge,
+    Face,
+    Node,
+    NodeId,
+};
 
 #[derive(Debug)]
 pub struct Mesh {
@@ -6,6 +15,8 @@ pub struct Mesh {
     edges: Vec<Edge>,
     faces: Vec<Face>,
     cells: Vec<Cell>,
+
+    connectivity: Connectivity,
 }
 
 impl Mesh {
@@ -15,6 +26,7 @@ impl Mesh {
             edges: Vec::new(),
             faces: Vec::new(),
             cells: Vec::new(),
+            connectivity: Connectivity::new(),
         }
     }
 
@@ -34,6 +46,26 @@ impl Mesh {
         self.cells.push(cell);
     }
 
+    // -------- Accessors --------
+
+    pub fn nodes(&self) -> &[Node] {
+        &self.nodes
+    }
+
+    pub fn edges(&self) -> &[Edge] {
+        &self.edges
+    }
+
+    pub fn faces(&self) -> &[Face] {
+        &self.faces
+    }
+
+    pub fn cells(&self) -> &[Cell] {
+        &self.cells
+    }
+
+    // -------- Counts --------
+
     pub fn node_count(&self) -> usize {
         self.nodes.len()
     }
@@ -50,23 +82,28 @@ impl Mesh {
         self.cells.len()
     }
 
-    pub fn nodes(&self) -> &[Node] {
-        &self.nodes
+    // -------- Connectivity --------
+
+    pub fn connectivity(&self) -> &Connectivity {
+        &self.connectivity
     }
 
-    pub fn clear(&mut self) {
-        self.nodes.clear();
-        self.edges.clear();
-        self.faces.clear();
-        self.cells.clear();
+    pub fn connectivity_mut(&mut self) -> &mut Connectivity {
+        &mut self.connectivity
+    }
+
+    pub fn initialize_connectivity(&mut self) {
+        self.connectivity.resize(
+            self.node_count(),
+            self.edge_count(),
+            self.face_count(),
+        );
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use math::{Point2, Scalar};
-    use crate::NodeId;
 
     #[test]
     fn create_mesh() {
@@ -82,9 +119,20 @@ mod tests {
 
         mesh.add_node(node);
 
+        mesh.initialize_connectivity();
+
         assert_eq!(mesh.node_count(), 1);
         assert_eq!(mesh.edge_count(), 0);
         assert_eq!(mesh.face_count(), 0);
         assert_eq!(mesh.cell_count(), 0);
+
+        assert_eq!(mesh.nodes().len(), 1);
+
+        assert_eq!(
+            mesh.connectivity()
+                .node_edges(NodeId::new(0))
+                .len(),
+            0,
+        );
     }
 }

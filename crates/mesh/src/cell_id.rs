@@ -6,7 +6,7 @@ impl CellId {
         Self(id)
     }
 
-    pub fn value(self) -> usize {
+    pub fn value(&self) -> usize {
         self.0
     }
 }
@@ -17,8 +17,8 @@ mod tests {
 
     #[test]
     fn create_cell_id() {
-        let id = CellId::new(42);
+        let id = CellId::new(5);
 
-        assert_eq!(id.value(), 42);
+        assert_eq!(id.value(), 5);
     }
 }
