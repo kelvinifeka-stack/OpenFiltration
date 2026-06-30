@@ -1,58 +1,90 @@
 use crate::LinearSystem;
 
-#[derive(Debug)]
-pub struct ConjugateGradient {
-    max_iterations: usize,
-    tolerance: f64,
-}
+pub struct ConjugateGradient;
 
 impl ConjugateGradient {
-    pub fn new(max_iterations: usize, tolerance: f64) -> Self {
-        Self {
-            max_iterations,
-            tolerance,
-        }
-    }
-
     pub fn solve(
-        &self,
         system: &LinearSystem,
+        tolerance: f64,
+        max_iterations: usize,
     ) -> Vec<f64> {
-        // Placeholder implementation.
-        // The full CG algorithm will be added incrementally.
-        vec![0.0; system.size()]
-    }
+        let n = system.rhs().len();
 
-    pub fn max_iterations(&self) -> usize {
-        self.max_iterations
-    }
+        let mut x = vec![0.0; n];
 
-    pub fn tolerance(&self) -> f64 {
-        self.tolerance
+        let mut r = system.rhs().to_vec();
+
+        let mut p = r.clone();
+
+        let mut rs_old = dot(&r, &r);
+
+        for _ in 0..max_iterations {
+
+            let ap = system.matrix().multiply(&p);
+
+            let alpha = rs_old / dot(&p, &ap);
+
+            for i in 0..n {
+                x[i] += alpha * p[i];
+            }
+
+            for i in 0..n {
+                r[i] -= alpha * ap[i];
+            }
+
+            let rs_new = dot(&r, &r);
+
+            if rs_new.sqrt() < tolerance {
+                break;
+            }
+
+            let beta = rs_new / rs_old;
+
+            for i in 0..n {
+                p[i] = r[i] + beta * p[i];
+            }
+
+            rs_old = rs_new;
+        }
+
+        x
     }
+}
+
+fn dot(a: &[f64], b: &[f64]) -> f64 {
+    a.iter()
+        .zip(b.iter())
+        .map(|(x, y)| x * y)
+        .sum()
 }
 
 #[cfg(test)]
 mod tests {
+
     use super::*;
     use crate::LinearSystem;
 
     #[test]
-    fn create_solver() {
-        let solver = ConjugateGradient::new(1000, 1e-8);
+    fn solve_identity_system() {
 
-        assert_eq!(solver.max_iterations(), 1000);
-        assert_eq!(solver.tolerance(), 1e-8);
-    }
+        let mut system = LinearSystem::new(3);
 
-    #[test]
-    fn solve_returns_correct_size() {
-        let system = LinearSystem::new(4);
+        system.matrix_mut().add(0,0,1.0);
+        system.matrix_mut().add(1,1,1.0);
+        system.matrix_mut().add(2,2,1.0);
 
-        let solver = ConjugateGradient::new(100, 1e-6);
+        system.rhs_mut()[0] = 4.0;
+        system.rhs_mut()[1] = 5.0;
+        system.rhs_mut()[2] = 6.0;
 
-        let solution = solver.solve(&system);
+        let x = ConjugateGradient::solve(
+            &system,
+            1e-12,
+            20,
+        );
 
-        assert_eq!(solution.len(), 4);
+        assert!((x[0]-4.0).abs() < 1e-10);
+        assert!((x[1]-5.0).abs() < 1e-10);
+        assert!((x[2]-6.0).abs() < 1e-10);
     }
 }
