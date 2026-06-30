@@ -50,7 +50,7 @@ pub mod muscl;
 pub mod tvd;
 pub mod face_reconstruction;
 pub mod high_order_convection;
-
+pub mod convection_scheme;
 
 pub mod node;
 pub mod edge;
@@ -62,7 +62,7 @@ pub mod structured_grid;
 pub use node_id::NodeId;
 pub use edge_id::EdgeId;
 pub use cell_id::CellId;
-
+    
 pub use node::Node;
 pub use edge::Edge;
 pub use face::Face;
@@ -117,3 +117,4 @@ pub use muscl::Muscl;
 pub use tvd::TVD;
 pub use face_reconstruction::FaceReconstruction;
 pub use high_order_convection::HighOrderConvection;
+pub use convection_scheme::ConvectionScheme;
