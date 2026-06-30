@@ -24,8 +24,7 @@ pub mod least_squares;
 pub mod face_flux;
 pub mod diffusion_flux;
 pub mod convective_flux;
-
-
+pub mod upwind;
 
 pub mod node;
 pub mod edge;
@@ -66,3 +65,4 @@ pub use least_squares::LeastSquares;
 pub use face_flux::FaceFlux;
 pub use diffusion_flux::DiffusionFlux;
 pub use convective_flux::ConvectiveFlux;
+pub use upwind::Upwind;
