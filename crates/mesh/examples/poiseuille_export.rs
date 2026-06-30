@@ -10,21 +10,17 @@ fn main() -> std::io::Result<()> {
 
     println!("Mesh contains {} nodes", mesh.node_count());
 
-    // Temporary point cloud for testing the exporter.
-    // Replace these with real mesh node coordinates later.
-    let points = vec![
-        (0.0, 0.0),
-        (1.0, 0.0),
-        (1.0, 1.0),
-        (0.0, 1.0),
-    ];
+    let points = mesh.points();
 
     VtkWriter::write_points(
         "poiseuille.vtk",
         &points,
     )?;
 
-    println!("VTK file written to poiseuille.vtk");
+    println!(
+        "Exported {} mesh nodes.",
+        points.len()
+    );
 
     Ok(())
 }

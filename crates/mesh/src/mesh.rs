@@ -127,6 +127,19 @@ impl Mesh {
     pub fn boundary_patches(&self) -> &[BoundaryPatch] {
         &self.boundary_patches
     }
+
+    pub fn points(&self) -> Vec<(f64, f64)> {
+        self.nodes
+            .iter()
+            .map(|node| {
+                let p = node.position();
+                (
+                    p.x.value(),
+                    p.y.value(),
+                )
+            })
+            .collect()
+    }
 }
 
 #[cfg(test)]
