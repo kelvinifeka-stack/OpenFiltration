@@ -23,6 +23,22 @@ impl VtkWriter {
 
         Ok(())
     }
+
+    pub fn write_scalar_field(
+        file: &mut impl std::io::Write,
+        name: &str,
+        values: &[f64],
+    ) -> std::io::Result<()> {
+        writeln!(file, "POINT_DATA {}", values.len())?;
+        writeln!(file, "SCALARS {} float 1", name)?;
+        writeln!(file, "LOOKUP_TABLE default")?;
+
+        for value in values {
+            writeln!(file, "{value}")?;
+        }
+
+        Ok(())
+    }
 }
 
 #[cfg(test)]
