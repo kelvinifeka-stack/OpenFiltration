@@ -40,6 +40,7 @@ pub mod deferred_correction;
 pub mod rhie_chow;
 pub mod mass_flux;
 pub mod pressure_equation;
+pub mod momentum_equation;
 
 
 pub mod node;
@@ -97,3 +98,4 @@ pub use deferred_correction::DeferredCorrection;
 pub use rhie_chow::RhieChowInterpolation;
 pub use mass_flux::MassFlux;
 pub use pressure_equation::PressureEquation;
+pub use momentum_equation::MomentumEquation;
