@@ -18,8 +18,7 @@ pub mod conjugate_gradient;
 pub mod laplacian;
 pub mod system_assembly;
 pub mod interpolation;
-
-
+pub mod gradient;
 
 pub mod node;
 pub mod edge;
@@ -54,3 +53,4 @@ pub use conjugate_gradient::ConjugateGradient;
 pub use laplacian::Laplacian;
 pub use system_assembly::SystemAssembly;
 pub use interpolation::Interpolation;
+pub use gradient::Gradient;
