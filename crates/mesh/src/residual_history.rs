@@ -14,6 +14,11 @@ impl ResidualHistory {
         self.values.push(residual);
     }
 
+    // Alias used by solver infrastructure
+    pub fn record(&mut self, residual: f64) {
+        self.push(residual);
+    }
+
     pub fn latest(&self) -> Option<f64> {
         self.values.last().copied()
     }

@@ -51,6 +51,9 @@ pub mod tvd;
 pub mod face_reconstruction;
 pub mod high_order_convection;
 pub mod convection_scheme;
+pub mod under_relaxation;
+pub mod convergence_monitor;
+pub mod solver_controls;
 
 pub mod node;
 pub mod edge;
@@ -118,3 +121,5 @@ pub use tvd::TVD;
 pub use face_reconstruction::FaceReconstruction;
 pub use high_order_convection::HighOrderConvection;
 pub use convection_scheme::ConvectionScheme;
+pub use under_relaxation::UnderRelaxation;
+pub use convergence_monitor::ConvergenceMonitor;
