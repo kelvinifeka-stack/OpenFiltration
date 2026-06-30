@@ -1,10 +1,14 @@
 use math::{Point2, Scalar};
 
 use crate::{
+    BoundaryPatch,
+    BoundaryType,
     Cell,
     Connectivity,
     Edge,
+    EdgeId,
     Face,
+    Field,
     Geometry,
     Node,
     NodeId,
@@ -16,6 +20,7 @@ pub struct Mesh {
     edges: Vec<Edge>,
     faces: Vec<Face>,
     cells: Vec<Cell>,
+    boundary_patches: Vec<BoundaryPatch>,
 
     connectivity: Connectivity,
     geometry: Geometry,
@@ -28,6 +33,7 @@ impl Mesh {
             edges: Vec::new(),
             faces: Vec::new(),
             cells: Vec::new(),
+            boundary_patches: Vec::new(),
 
             connectivity: Connectivity::new(),
             geometry: Geometry::new(),
@@ -105,6 +111,21 @@ impl Mesh {
             self.face_count(),
         );
     }
+
+    pub fn add_boundary_patch(
+        &mut self,
+        patch: BoundaryPatch,
+    ) {
+        self.boundary_patches.push(patch);
+    }
+
+    pub fn boundary_patch_count(&self) -> usize {
+        self.boundary_patches.len()
+    }
+
+    pub fn boundary_patches(&self) -> &[BoundaryPatch] {
+        &self.boundary_patches
+    }
 }
 
 #[cfg(test)]
@@ -145,5 +166,18 @@ mod tests {
                 .len(),
             0,
         );
+    }
+
+    #[test]
+    fn create_boundary_patch() {
+        let mut patch = BoundaryPatch::new(
+            "wall",
+            BoundaryType::Wall,
+        );
+
+        patch.add_edge(EdgeId::new(0));
+
+        assert_eq!(patch.edge_count(), 1);
+        assert_eq!(patch.name(), "wall");
     }
 }
