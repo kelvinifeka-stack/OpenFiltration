@@ -59,4 +59,52 @@ mod tests {
 
         assert!(system.matrix().nnz() > mesh.node_count());
     }
+
+    #[cfg(test)]
+mod integration_tests {
+
+    use crate::{
+        ConjugateGradient,
+        Laplacian,
+        MeshBuilder,
+        SystemAssembly,
+    };
+
+    #[test]
+        fn solve_small_diffusion_problem() {
+
+            let mesh = MeshBuilder::structured(
+                4,
+                1,
+                1.0,
+                1.0,
+            );
+
+            let mut system = Laplacian::assemble(&mesh);
+
+            SystemAssembly::apply_dirichlet(
+                &mut system,
+                0,
+                1.0,
+            );
+
+            SystemAssembly::apply_dirichlet(
+                &mut system,
+                mesh.node_count() - 1,
+                0.0,
+            );
+
+            let solution = ConjugateGradient::solve(
+                &system,
+                1e-10,
+                200,
+            );
+
+            assert_eq!(solution.len(), mesh.node_count());
+
+            for value in solution {
+                assert!(value.is_finite());
+            }
+        }
+    }
 }
