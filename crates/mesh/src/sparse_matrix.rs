@@ -55,6 +55,22 @@ impl SparseMatrix {
     pub fn entries(&self) -> &[(usize, usize, f64)] {
         &self.values
     }
+
+    pub fn multiply(
+        &self,
+        x: &[f64],
+    ) -> Vec<f64> {
+        assert_eq!(x.len(), self.cols);
+
+        let mut result = vec![0.0; self.rows];
+
+        for &(row, col, value) in &self.values {
+            result[row] += value * x[col];
+        }
+
+        result
+    }
+
 }
 
 #[cfg(test)]
@@ -83,5 +99,22 @@ mod tests {
         assert_eq!(matrix.nnz(), 1);
 
         assert_eq!(matrix.entries()[0], (0, 0, 5.5));
+    }
+
+    #[test]
+    fn matrix_vector_product() {
+
+        let mut matrix = SparseMatrix::new(2,2);
+
+        matrix.add(0,0,2.0);
+        matrix.add(0,1,1.0);
+        matrix.add(1,0,3.0);
+
+        let x = vec![4.0,5.0];
+
+        let y = matrix.multiply(&x);
+
+        assert_eq!(y[0],13.0);
+        assert_eq!(y[1],12.0);
     }
 }
