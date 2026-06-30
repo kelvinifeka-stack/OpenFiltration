@@ -7,6 +7,7 @@ pub mod connectivity;
 pub mod geometry;
 pub mod face_geometry;
 pub mod cell_geometry;
+pub mod field;
 
 pub mod node;
 pub mod edge;
@@ -31,3 +32,4 @@ pub use connectivity::Connectivity;
 pub use geometry::Geometry;
 pub use face_geometry::FaceGeometry;
 pub use cell_geometry::CellGeometry;
+pub use field::Field;
