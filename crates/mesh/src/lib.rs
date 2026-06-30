@@ -43,6 +43,7 @@ pub mod pressure_equation;
 pub mod momentum_equation;
 pub mod simple_iteration;
 pub mod cell_field;
+pub mod face_field;
 
 
 pub mod node;
@@ -103,3 +104,4 @@ pub use pressure_equation::PressureEquation;
 pub use momentum_equation::MomentumEquation;
 pub use simple_iteration::SimpleIteration;
 pub use cell_field::CellField;
+pub use face_field::FaceField;
