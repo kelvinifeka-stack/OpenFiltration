@@ -39,6 +39,7 @@ pub mod non_orthogonal_correction;
 pub mod deferred_correction;
 pub mod rhie_chow;
 pub mod mass_flux;
+pub mod pressure_equation;
 
 
 pub mod node;
@@ -95,3 +96,4 @@ pub use non_orthogonal_correction::NonOrthogonalCorrection;
 pub use deferred_correction::DeferredCorrection;
 pub use rhie_chow::RhieChowInterpolation;
 pub use mass_flux::MassFlux;
+pub use pressure_equation::PressureEquation;
