@@ -4,6 +4,9 @@ pub mod cell_id;
 pub mod mesh_builder;
 pub mod face_id;
 pub mod connectivity;
+pub mod geometry;
+pub mod face_geometry;
+pub mod cell_geometry;
 
 pub mod node;
 pub mod edge;
@@ -25,3 +28,6 @@ pub use structured_grid::StructuredGrid;
 pub use mesh_builder::MeshBuilder;
 pub use face_id::FaceId;
 pub use connectivity::Connectivity;
+pub use geometry::Geometry;
+pub use face_geometry::FaceGeometry;
+pub use cell_geometry::CellGeometry;
