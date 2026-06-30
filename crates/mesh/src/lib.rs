@@ -16,6 +16,7 @@ pub mod linear_system;
 pub mod vector_ops;
 pub mod conjugate_gradient;
 pub mod laplacian;
+pub mod system_assembly;
 
 pub mod node;
 pub mod edge;
@@ -48,3 +49,4 @@ pub use sparse_matrix::SparseMatrix;
 pub use linear_system::LinearSystem;
 pub use conjugate_gradient::ConjugateGradient;
 pub use laplacian::Laplacian;
+pub use system_assembly::SystemAssembly;
