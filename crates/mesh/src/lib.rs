@@ -48,6 +48,7 @@ pub mod vector_field;
 pub mod flux_limiter;
 pub mod muscl;
 pub mod tvd;
+pub mod face_reconstruction;
 
 
 pub mod node;
@@ -113,3 +114,4 @@ pub use vector_field::VectorField;
 pub use flux_limiter::FluxLimiter;
 pub use muscl::Muscl;
 pub use tvd::TVD;
+pub use face_reconstruction::FaceReconstruction;
