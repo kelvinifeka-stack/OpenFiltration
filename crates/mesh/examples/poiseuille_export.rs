@@ -1,6 +1,6 @@
 use mesh::{MeshBuilder, VtkWriter};
 
-fn main() {
+fn main() -> std::io::Result<()> {
     let mesh = MeshBuilder::structured(
         20,
         10,
@@ -10,8 +10,21 @@ fn main() {
 
     println!("Mesh contains {} nodes", mesh.node_count());
 
-    // TODO:
-    // Create pressure field
-    // Create velocity field
-    // Export using VtkWriter
+    // Temporary point cloud for testing the exporter.
+    // Replace these with real mesh node coordinates later.
+    let points = vec![
+        (0.0, 0.0),
+        (1.0, 0.0),
+        (1.0, 1.0),
+        (0.0, 1.0),
+    ];
+
+    VtkWriter::write_points(
+        "poiseuille.vtk",
+        &points,
+    )?;
+
+    println!("VTK file written to poiseuille.vtk");
+
+    Ok(())
 }
