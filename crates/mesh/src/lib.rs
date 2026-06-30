@@ -13,6 +13,7 @@ pub mod boundary_type;
 pub mod boundary_condition;
 pub mod sparse_matrix;
 pub mod linear_system;
+pub mod vector_ops;
 
 pub mod node;
 pub mod edge;
