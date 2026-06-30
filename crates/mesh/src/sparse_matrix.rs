@@ -23,6 +23,16 @@ impl SparseMatrix {
         self.values.push((row, col, value));
     }
 
+    // Alias used by matrix assembly
+    pub fn add(
+        &mut self,
+        row: usize,
+        col: usize,
+        value: f64,
+    ) {
+        self.insert(row, col, value);
+    }
+
     pub fn rows(&self) -> usize {
         self.rows
     }
@@ -48,8 +58,8 @@ mod tests {
     fn create_sparse_matrix() {
         let mut matrix = SparseMatrix::new(4, 4);
 
-        matrix.insert(0, 0, 2.0);
-        matrix.insert(0, 1, -1.0);
+        matrix.add(0, 0, 2.0);
+        matrix.add(0, 1, -1.0);
 
         assert_eq!(matrix.rows(), 4);
         assert_eq!(matrix.cols(), 4);
