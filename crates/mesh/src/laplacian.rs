@@ -94,6 +94,8 @@ mod integration_tests {
                 0.0,
             );
 
+            system.matrix_mut().finalize();
+
             let solution = ConjugateGradient::solve(
                 &system,
                 1e-10,

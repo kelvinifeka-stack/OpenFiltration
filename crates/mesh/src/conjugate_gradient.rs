@@ -73,6 +73,8 @@ mod tests {
         system.matrix_mut().add(1,1,1.0);
         system.matrix_mut().add(2,2,1.0);
 
+        system.matrix_mut().finalize();
+
         system.rhs_mut()[0] = 4.0;
         system.rhs_mut()[1] = 5.0;
         system.rhs_mut()[2] = 6.0;
