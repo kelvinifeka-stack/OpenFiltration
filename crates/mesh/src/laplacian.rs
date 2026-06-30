@@ -11,11 +11,22 @@ impl Laplacian {
 
         let mut system = LinearSystem::new(n);
 
-        // Placeholder:
-        // later every edge contributes diffusion terms.
+        if n == 0 {
+            return system;
+        }
 
         for i in 0..n {
-            system.matrix_mut().add(i, i, 1.0);
+
+            if i > 0 {
+                system.matrix_mut().add(i, i - 1, -1.0);
+            }
+
+            system.matrix_mut().add(i, i, 2.0);
+
+            if i + 1 < n {
+                system.matrix_mut().add(i, i + 1, -1.0);
+            }
+
             system.rhs_mut()[i] = 0.0;
         }
 
@@ -30,7 +41,7 @@ mod tests {
     use crate::MeshBuilder;
 
     #[test]
-    fn assemble_laplacian() {
+    fn assemble_diffusion_matrix() {
 
         let mesh = MeshBuilder::structured(
             2,
@@ -45,5 +56,7 @@ mod tests {
             system.matrix().rows(),
             mesh.node_count(),
         );
+
+        assert!(system.matrix().nnz() > mesh.node_count());
     }
 }
