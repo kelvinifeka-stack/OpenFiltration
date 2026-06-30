@@ -41,6 +41,7 @@ pub mod rhie_chow;
 pub mod mass_flux;
 pub mod pressure_equation;
 pub mod momentum_equation;
+pub mod simple_iteration;
 
 
 pub mod node;
