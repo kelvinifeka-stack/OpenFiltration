@@ -10,6 +10,7 @@ pub mod cell_geometry;
 pub mod field;
 pub mod boundary_patch;
 pub mod boundary_type;
+pub mod boundary_condition;
 
 pub mod node;
 pub mod edge;
@@ -37,3 +38,4 @@ pub use cell_geometry::CellGeometry;
 pub use field::Field;
 pub use boundary_patch::BoundaryPatch;
 pub use boundary_type::BoundaryType;
+pub use boundary_condition::BoundaryCondition;

@@ -3,6 +3,7 @@ use math::{Point2, Scalar};
 use crate::{
     BoundaryPatch,
     BoundaryType,
+    BoundaryCondition,
     Cell,
     Connectivity,
     Edge,
@@ -173,6 +174,7 @@ mod tests {
         let mut patch = BoundaryPatch::new(
             "wall",
             BoundaryType::Wall,
+            BoundaryCondition::FixedValue(0.0),
         );
 
         patch.add_edge(EdgeId::new(0));
