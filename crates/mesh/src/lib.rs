@@ -14,6 +14,7 @@ pub mod boundary_condition;
 pub mod sparse_matrix;
 pub mod linear_system;
 pub mod vector_ops;
+pub mod conjugate_gradient;
 
 pub mod node;
 pub mod edge;
@@ -44,3 +45,4 @@ pub use boundary_type::BoundaryType;
 pub use boundary_condition::BoundaryCondition;
 pub use sparse_matrix::SparseMatrix;
 pub use linear_system::LinearSystem;
+pub use conjugate_gradient::ConjugateGradient;
