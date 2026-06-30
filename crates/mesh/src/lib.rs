@@ -19,6 +19,7 @@ pub mod laplacian;
 pub mod system_assembly;
 pub mod interpolation;
 pub mod gradient;
+pub mod green_gauss;
 
 pub mod node;
 pub mod edge;
@@ -54,3 +55,4 @@ pub use laplacian::Laplacian;
 pub use system_assembly::SystemAssembly;
 pub use interpolation::Interpolation;
 pub use gradient::Gradient;
+pub use green_gauss::GreenGauss;
