@@ -30,6 +30,7 @@ pub mod simple;
 pub mod pressure_correction;
 pub mod velocity_correction;
 pub mod residual;
+pub mod convergence;
 
 pub mod node;
 pub mod edge;
@@ -76,3 +77,4 @@ pub use simple::SimpleSolver;
 pub use pressure_correction::PressureCorrection;
 pub use velocity_correction::VelocityCorrection;
 pub use residual::Residual;
+pub use convergence::Convergence; 
