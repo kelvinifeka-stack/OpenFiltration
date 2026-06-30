@@ -1,29 +1,27 @@
-use math::Scalar;
+use math::{Point2, Scalar};
 
 #[derive(Debug, Clone)]
 pub struct FaceGeometry {
+    center: Point2,
     area: Scalar,
-    normal_x: Scalar,
-    normal_y: Scalar,
-    center_x: Scalar,
-    center_y: Scalar,
+    normal: (Scalar, Scalar),
 }
 
 impl FaceGeometry {
     pub fn new(
+        center: Point2,
         area: Scalar,
-        normal_x: Scalar,
-        normal_y: Scalar,
-        center_x: Scalar,
-        center_y: Scalar,
+        normal: (Scalar, Scalar),
     ) -> Self {
         Self {
+            center,
             area,
-            normal_x,
-            normal_y,
-            center_x,
-            center_y,
+            normal,
         }
+    }
+
+    pub fn center(&self) -> &Point2 {
+        &self.center
     }
 
     pub fn area(&self) -> Scalar {
@@ -31,11 +29,7 @@ impl FaceGeometry {
     }
 
     pub fn normal(&self) -> (Scalar, Scalar) {
-        (self.normal_x, self.normal_y)
-    }
-
-    pub fn center(&self) -> (Scalar, Scalar) {
-        (self.center_x, self.center_y)
+        self.normal
     }
 }
 
@@ -47,14 +41,18 @@ mod tests {
     #[test]
     fn create_face_geometry() {
 
-        let geo = FaceGeometry::new(
+        let geometry = FaceGeometry::new(
+            Point2::new(
+                Scalar(0.5),
+                Scalar(0.0),
+            ),
             Scalar(1.0),
-            Scalar(1.0),
-            Scalar(0.0),
-            Scalar(0.5),
-            Scalar(0.0),
+            (
+                Scalar(1.0),
+                Scalar(0.0),
+            ),
         );
 
-        assert_eq!(geo.area().0,1.0);
+        assert_eq!(geometry.area(), Scalar(1.0));
     }
 }
