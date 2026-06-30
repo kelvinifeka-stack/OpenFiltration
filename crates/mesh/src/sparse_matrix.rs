@@ -30,7 +30,14 @@ impl SparseMatrix {
         col: usize,
         value: f64,
     ) {
-        self.insert(row, col, value);
+        for (r, c, v) in &mut self.values {
+            if *r == row && *c == col {
+                *v += value;
+                return;
+            }
+        }
+
+        self.values.push((row, col, value));
     }
 
     pub fn rows(&self) -> usize {
@@ -64,5 +71,17 @@ mod tests {
         assert_eq!(matrix.rows(), 4);
         assert_eq!(matrix.cols(), 4);
         assert_eq!(matrix.nnz(), 2);
+    }
+
+    #[test]
+    fn add_accumulates_values() {
+        let mut matrix = SparseMatrix::new(2, 2);
+
+        matrix.add(0, 0, 2.0);
+        matrix.add(0, 0, 3.5);
+
+        assert_eq!(matrix.nnz(), 1);
+
+        assert_eq!(matrix.entries()[0], (0, 0, 5.5));
     }
 }
