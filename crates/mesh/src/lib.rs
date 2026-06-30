@@ -21,6 +21,9 @@ pub mod interpolation;
 pub mod gradient;
 pub mod green_gauss;
 pub mod least_squares;
+pub mod face_flux;
+
+
 
 pub mod node;
 pub mod edge;
@@ -58,3 +61,4 @@ pub use interpolation::Interpolation;
 pub use gradient::Gradient;
 pub use green_gauss::GreenGauss;
 pub use least_squares::LeastSquares;
+pub use face_flux::FaceFlux;
