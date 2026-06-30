@@ -33,6 +33,9 @@ pub mod residual;
 pub mod convergence;
 pub mod benchmarks;
 pub mod residual_history;
+pub mod vtk_writer;
+
+
 
 pub mod node;
 pub mod edge;
@@ -82,3 +85,4 @@ pub use residual::Residual;
 pub use convergence::Convergence;
 pub use benchmarks::PoiseuilleBenchmark;
 pub use residual_history::ResidualHistory;
+pub use vtk_writer::VtkWriter;
