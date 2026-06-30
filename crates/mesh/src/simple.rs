@@ -30,14 +30,21 @@ impl SimpleSolver {
     }
 
     pub fn iterate(&mut self) {
-        // Placeholder.
+        // Future momentum solve
+        self.momentum.matrix_mut().finalize();
+
+        // Future pressure correction solve
+        self.pressure.matrix_mut().finalize();
+
+        // Placeholder for SIMPLE cycle:
         //
-        // Future implementation:
-        // 1. Solve momentum equations
-        // 2. Assemble pressure correction equation
-        // 3. Solve pressure correction
-        // 4. Correct pressure
-        // 5. Correct velocity
+        // 1. Assemble momentum equations
+        // 2. Solve momentum equations
+        // 3. Assemble pressure correction
+        // 4. Solve pressure correction
+        // 5. Correct pressure
+        // 6. Correct velocity
+        // 7. Check residuals
     }
 }
 
@@ -51,5 +58,15 @@ mod tests {
 
         assert_eq!(solver.pressure_system().size(), 25);
         assert_eq!(solver.momentum_system().size(), 25);
+    }
+
+    #[test]
+    fn simple_iteration_executes() {
+        let mut solver = SimpleSolver::new(10);
+
+        solver.iterate();
+
+        assert_eq!(solver.pressure_system().size(), 10);
+        assert_eq!(solver.momentum_system().size(), 10);
     }
 }
