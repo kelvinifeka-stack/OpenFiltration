@@ -32,6 +32,7 @@ pub mod velocity_correction;
 pub mod residual;
 pub mod convergence;
 pub mod benchmarks;
+pub mod residual_history;
 
 pub mod node;
 pub mod edge;
@@ -80,3 +81,4 @@ pub use velocity_correction::VelocityCorrection;
 pub use residual::Residual;
 pub use convergence::Convergence;
 pub use benchmarks::PoiseuilleBenchmark;
+pub use residual_history::ResidualHistory;
