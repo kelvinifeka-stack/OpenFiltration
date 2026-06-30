@@ -20,6 +20,7 @@ pub mod system_assembly;
 pub mod interpolation;
 pub mod gradient;
 pub mod green_gauss;
+pub mod least_squares;
 
 pub mod node;
 pub mod edge;
@@ -56,3 +57,4 @@ pub use system_assembly::SystemAssembly;
 pub use interpolation::Interpolation;
 pub use gradient::Gradient;
 pub use green_gauss::GreenGauss;
+pub use least_squares::LeastSquares;
