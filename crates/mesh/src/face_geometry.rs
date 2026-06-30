@@ -1,34 +1,60 @@
-use math::Point2;
+use math::Scalar;
 
 #[derive(Debug, Clone)]
 pub struct FaceGeometry {
-    center: Point2,
-    normal: (f64, f64),
-    length: f64,
+    area: Scalar,
+    normal_x: Scalar,
+    normal_y: Scalar,
+    center_x: Scalar,
+    center_y: Scalar,
 }
 
 impl FaceGeometry {
     pub fn new(
-        center: Point2,
-        normal: (f64, f64),
-        length: f64,
+        area: Scalar,
+        normal_x: Scalar,
+        normal_y: Scalar,
+        center_x: Scalar,
+        center_y: Scalar,
     ) -> Self {
         Self {
-            center,
-            normal,
-            length,
+            area,
+            normal_x,
+            normal_y,
+            center_x,
+            center_y,
         }
     }
 
-    pub fn center(&self) -> Point2 {
-        self.center
+    pub fn area(&self) -> Scalar {
+        self.area
     }
 
-    pub fn normal(&self) -> (f64, f64) {
-        self.normal
+    pub fn normal(&self) -> (Scalar, Scalar) {
+        (self.normal_x, self.normal_y)
     }
 
-    pub fn length(&self) -> f64 {
-        self.length
+    pub fn center(&self) -> (Scalar, Scalar) {
+        (self.center_x, self.center_y)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+
+    use super::*;
+
+    #[test]
+    fn create_face_geometry() {
+
+        let geo = FaceGeometry::new(
+            Scalar(1.0),
+            Scalar(1.0),
+            Scalar(0.0),
+            Scalar(0.5),
+            Scalar(0.0),
+        );
+
+        assert_eq!(geo.area().0,1.0);
     }
 }
