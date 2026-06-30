@@ -36,6 +36,7 @@ pub mod residual_history;
 pub mod vtk_writer;
 pub mod face_connectivity;
 pub mod non_orthogonal_correction;
+pub mod deferred_correction;
 
 
 pub mod node;
@@ -89,3 +90,4 @@ pub use residual_history::ResidualHistory;
 pub use vtk_writer::VtkWriter;
 pub use face_connectivity::FaceConnectivity;
 pub use non_orthogonal_correction::NonOrthogonalCorrection;
+pub use deferred_correction::DeferredCorrection;
