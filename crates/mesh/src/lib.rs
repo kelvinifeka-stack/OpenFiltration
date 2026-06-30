@@ -54,6 +54,7 @@ pub mod convection_scheme;
 pub mod under_relaxation;
 pub mod convergence_monitor;
 pub mod solver_controls;
+pub mod simple_controller;
 
 pub mod node;
 pub mod edge;
@@ -123,3 +124,5 @@ pub use high_order_convection::HighOrderConvection;
 pub use convection_scheme::ConvectionScheme;
 pub use under_relaxation::UnderRelaxation;
 pub use convergence_monitor::ConvergenceMonitor;
+pub use solver_controls::SolverControls;
+pub use simple_controller::SimpleController;
