@@ -26,6 +26,7 @@ pub mod diffusion_flux;
 pub mod convective_flux;
 pub mod upwind;
 pub mod time_integration;
+pub mod simple;
 
 pub mod node;
 pub mod edge;
@@ -68,3 +69,4 @@ pub use diffusion_flux::DiffusionFlux;
 pub use convective_flux::ConvectiveFlux;
 pub use upwind::Upwind;
 pub use time_integration::ExplicitEuler;
+pub use simple::SimpleSolver;
