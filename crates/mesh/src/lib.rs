@@ -66,6 +66,8 @@ pub mod simple_loop;
 pub mod simple_driver;
 pub mod momentum_assembly;
 pub mod finite_volume_equation;
+pub mod scalar_transport;
+
 
 pub mod node;
 pub mod edge;
@@ -148,3 +150,4 @@ pub use simple_loop::SimpleLoop;
 pub use simple_driver::SimpleDriver;
 pub use momentum_assembly::MomentumAssembly;
 pub use finite_volume_equation::FiniteVolumeEquation;
+pub use scalar_transport::ScalarTransportEquation;
