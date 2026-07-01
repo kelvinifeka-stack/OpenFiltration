@@ -1,23 +1,17 @@
-use crate::LinearSystem;
+use crate::{LinearSystem, SparseMatrix};
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct FvmAssembler {
-    system: LinearSystem,
+    matrix: SparseMatrix,
+    rhs: Vec<f64>,
 }
 
 impl FvmAssembler {
     pub fn new(size: usize) -> Self {
         Self {
-            system: LinearSystem::new(size),
+            matrix: SparseMatrix::new(size, size),
+            rhs: vec![0.0; size],
         }
-    }
-
-    pub fn system(&self) -> &LinearSystem {
-        &self.system
-    }
-
-    pub fn system_mut(&mut self) -> &mut LinearSystem {
-        &mut self.system
     }
 
     pub fn add_to_diagonal(
@@ -25,9 +19,16 @@ impl FvmAssembler {
         row: usize,
         value: f64,
     ) {
-        self.system
-            .matrix_mut()
-            .add(row, row, value);
+        self.matrix.add(row, row, value);
+    }
+
+    pub fn add_to_off_diagonal(
+        &mut self,
+        row: usize,
+        column: usize,
+        value: f64,
+    ) {
+        self.matrix.add(row, column, value);
     }
 
     pub fn add_to_rhs(
@@ -35,65 +36,122 @@ impl FvmAssembler {
         row: usize,
         value: f64,
     ) {
-        self.system.rhs_mut()[row] += value;
+        self.rhs[row] += value;
     }
 
     pub fn reset(&mut self) {
-        let size = self.system.size();
-        self.system = LinearSystem::new(size);
+        self.matrix = SparseMatrix::new(
+            self.matrix.rows(),
+            self.matrix.cols(),
+        );
+
+        self.rhs.fill(0.0);
     }
 
-    pub fn build(self) -> LinearSystem {
-        self.system
+    pub fn build(mut self) -> LinearSystem {
+
+        self.matrix.finalize();
+
+        let mut system =
+            LinearSystem::new(self.rhs.len());
+
+        *system.matrix_mut() = self.matrix;
+        system.rhs_mut().copy_from_slice(&self.rhs);
+
+        system
     }
 }
 
 #[cfg(test)]
 mod tests {
+
     use super::*;
 
     #[test]
-    fn assembler_builds_linear_system() {
-        let assembler = FvmAssembler::new(5);
+    fn add_diagonal() {
+
+        let mut assembler =
+            FvmAssembler::new(3);
+
+        assembler.add_to_diagonal(1,5.0);
 
         let system = assembler.build();
 
-        assert_eq!(system.size(), 5);
-    }
-
-    #[test]
-    fn add_diagonal() {
-        let mut assembler = FvmAssembler::new(4);
-
-        assembler.add_to_diagonal(2, 5.0);
-
         assert_eq!(
-            assembler.system().matrix().get(2, 2),
+            system.matrix().get(1,1),
             5.0
         );
     }
 
     #[test]
-    fn add_rhs() {
-        let mut assembler = FvmAssembler::new(4);
+    fn add_off_diagonal() {
 
-        assembler.add_to_rhs(1, 3.5);
+        let mut assembler =
+            FvmAssembler::new(3);
+
+        assembler.add_to_off_diagonal(
+            0,
+            1,
+            -2.0,
+        );
+
+        let system = assembler.build();
 
         assert_eq!(
-            assembler.system().rhs()[1],
-            3.5
+            system.matrix().get(0,1),
+            -2.0
+        );
+    }
+
+    #[test]
+    fn add_rhs() {
+
+        let mut assembler =
+            FvmAssembler::new(2);
+
+        assembler.add_to_rhs(0,7.0);
+
+        let system = assembler.build();
+
+        assert_eq!(system.rhs()[0],7.0);
+    }
+
+    #[test]
+    fn assembler_builds_linear_system() {
+
+        let mut assembler =
+            FvmAssembler::new(2);
+
+        assembler.add_to_diagonal(0,1.0);
+        assembler.add_to_diagonal(1,2.0);
+
+        let system = assembler.build();
+
+        assert_eq!(
+            system.matrix().get(0,0),
+            1.0
+        );
+
+        assert_eq!(
+            system.matrix().get(1,1),
+            2.0
         );
     }
 
     #[test]
     fn reset() {
-        let mut assembler = FvmAssembler::new(3);
 
-        assembler.add_to_diagonal(0, 10.0);
+        let mut assembler =
+            FvmAssembler::new(2);
+
+        assembler.add_to_diagonal(0,5.0);
+
         assembler.reset();
 
+        let system = assembler.build();
+
         assert_eq!(
-            assembler.system().matrix().get(0, 0),
+            system.matrix().get(0,0),
             0.0
         );
     }

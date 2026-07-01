@@ -1,14 +1,16 @@
 use crate::{
-    FiniteVolumeEquation,
+    DiffusionAssembler,
     FvmAssembler,
     LinearSystem,
     ScalarTransportEquation,
+    TransportAssembler,
 };
 
 #[derive(Debug)]
 pub struct ScalarTransportAssembler {
     equation: ScalarTransportEquation,
     assembler: FvmAssembler,
+    diffusion: DiffusionAssembler,
 }
 
 impl ScalarTransportAssembler {
@@ -16,6 +18,7 @@ impl ScalarTransportAssembler {
         Self {
             equation: ScalarTransportEquation::new(size),
             assembler: FvmAssembler::new(size),
+            diffusion: DiffusionAssembler::new(1.0),
         }
     }
 
@@ -28,13 +31,22 @@ impl ScalarTransportAssembler {
     }
 
     pub fn assemble(&mut self) {
+
         self.assembler.reset();
 
         let n = self.equation.size();
 
-        for i in 0..n {
-            self.assembler.add_to_diagonal(i, 1.0);
-            self.assembler.add_to_rhs(i, 0.0);
+        if n >= 2 {
+
+            for i in 0..(n - 1) {
+
+                self.diffusion.assemble_pair(
+                    &mut self.assembler,
+                    i,
+                    i + 1,
+                    1.0,
+                );
+            }
         }
     }
 
@@ -48,28 +60,53 @@ impl ScalarTransportAssembler {
     }
 }
 
+impl TransportAssembler for ScalarTransportAssembler {
+
+    fn assemble(&mut self) {
+        ScalarTransportAssembler::assemble(self);
+    }
+
+    fn reset(&mut self) {
+        ScalarTransportAssembler::reset(self);
+    }
+
+    fn build(self) -> LinearSystem {
+        ScalarTransportAssembler::build(self)
+    }
+}
+
 #[cfg(test)]
 mod tests {
+
     use super::*;
 
     #[test]
     fn assemble_scalar_transport() {
-        let mut assembler = ScalarTransportAssembler::new(5);
+
+        let mut assembler =
+            ScalarTransportAssembler::new(5);
 
         assembler.assemble();
 
         let system = assembler.build();
 
         assert_eq!(system.size(), 5);
+
+        assert!(system.matrix().nnz() > 0);
     }
 
     #[test]
     fn reset_scalar_transport() {
-        let mut assembler = ScalarTransportAssembler::new(5);
+
+        let mut assembler =
+            ScalarTransportAssembler::new(5);
 
         assembler.assemble();
         assembler.reset();
 
-        assert_eq!(assembler.equation().size(), 5);
+        assert_eq!(
+            assembler.equation().size(),
+            5
+        );
     }
 }
