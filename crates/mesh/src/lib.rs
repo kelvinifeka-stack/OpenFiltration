@@ -75,6 +75,7 @@ pub mod transport_assembler;
 pub mod diffusion_assembler;
 pub mod cell_geometry_calculator;
 pub mod convection_assembler;
+pub mod mesh_metrics;
 
 
 pub mod node;
@@ -167,3 +168,4 @@ pub use transport_assembler::TransportAssembler;
 pub use diffusion_assembler::DiffusionAssembler;
 pub use cell_geometry_calculator::CellGeometryCalculator;
 pub use convection_assembler::ConvectionAssembler;
+pub use mesh_metrics::MeshMetrics;
