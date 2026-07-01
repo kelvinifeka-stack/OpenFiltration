@@ -74,6 +74,7 @@ pub mod momentum_assembler;
 pub mod transport_assembler;
 pub mod diffusion_assembler;
 pub mod cell_geometry_calculator;
+pub mod convection_assembler;
 
 
 pub mod node;
@@ -165,3 +166,4 @@ pub use momentum_assembler::MomentumAssembler;
 pub use transport_assembler::TransportAssembler;
 pub use diffusion_assembler::DiffusionAssembler;
 pub use cell_geometry_calculator::CellGeometryCalculator;
+pub use convection_assembler::ConvectionAssembler;
