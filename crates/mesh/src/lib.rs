@@ -65,6 +65,7 @@ pub mod pressure_corrector;
 pub mod simple_loop;
 pub mod simple_driver;
 pub mod momentum_assembly;
+pub mod finite_volume_equation;
 
 pub mod node;
 pub mod edge;
@@ -146,3 +147,4 @@ pub use pressure_corrector::PressureCorrector;
 pub use simple_loop::SimpleLoop;
 pub use simple_driver::SimpleDriver;
 pub use momentum_assembly::MomentumAssembly;
+pub use finite_volume_equation::FiniteVolumeEquation;
