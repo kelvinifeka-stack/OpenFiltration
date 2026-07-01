@@ -78,6 +78,7 @@ pub mod convection_assembler;
 pub mod mesh_metrics;
 pub mod interpolation_weights;
 pub mod source_assembler;
+pub mod face_interpolation_cache;
 
 pub mod node;
 pub mod edge;
@@ -172,3 +173,4 @@ pub use convection_assembler::ConvectionAssembler;
 pub use mesh_metrics::MeshMetrics;
 pub use interpolation_weights::InterpolationWeights;
 pub use source_assembler::SourceAssembler;
+pub use face_interpolation_cache::FaceInterpolationCache;
