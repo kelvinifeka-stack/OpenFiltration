@@ -76,7 +76,8 @@ pub mod diffusion_assembler;
 pub mod cell_geometry_calculator;
 pub mod convection_assembler;
 pub mod mesh_metrics;
-
+pub mod interpolation_weights;
+pub mod source_assembler;
 
 pub mod node;
 pub mod edge;
@@ -169,3 +170,5 @@ pub use diffusion_assembler::DiffusionAssembler;
 pub use cell_geometry_calculator::CellGeometryCalculator;
 pub use convection_assembler::ConvectionAssembler;
 pub use mesh_metrics::MeshMetrics;
+pub use interpolation_weights::InterpolationWeights;
+pub use source_assembler::SourceAssembler;
