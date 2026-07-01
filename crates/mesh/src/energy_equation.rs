@@ -1,11 +1,11 @@
 use crate::FiniteVolumeEquation;
 
 #[derive(Debug)]
-pub struct ScalarTransportEquation {
+pub struct EnergyEquation {
     equation: FiniteVolumeEquation,
 }
 
-impl ScalarTransportEquation {
+impl EnergyEquation {
     pub fn new(size: usize) -> Self {
         Self {
             equation: FiniteVolumeEquation::new(size),
@@ -34,18 +34,18 @@ mod tests {
     use super::*;
 
     #[test]
-    fn create_scalar_transport_equation() {
-        let eq = ScalarTransportEquation::new(10);
+    fn create_energy_equation() {
+        let equation = EnergyEquation::new(5);
 
-        assert_eq!(eq.size(), 10);
+        assert_eq!(equation.size(), 5);
     }
 
     #[test]
-    fn reset_equation() {
-        let mut eq = ScalarTransportEquation::new(5);
+    fn reset_energy_equation() {
+        let mut equation = EnergyEquation::new(8);
 
-        eq.reset();
+        equation.reset();
 
-        assert_eq!(eq.size(), 5);
+        assert_eq!(equation.size(), 8);
     }
 }

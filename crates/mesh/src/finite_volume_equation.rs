@@ -7,7 +7,7 @@ use crate::LinearSystem;
 /// aP * phiP = Σ(aN * phiN) + b
 ///
 /// Every transport equation (momentum, pressure,
-/// scalar, energy, turbulence...) will build upon
+/// scalar, energy, turbulence...) builds upon
 /// this structure.
 #[derive(Debug, Clone)]
 pub struct FiniteVolumeEquation {
@@ -29,9 +29,12 @@ impl FiniteVolumeEquation {
         &mut self.system
     }
 
+    pub fn size(&self) -> usize {
+        self.system.size()
+    }
+
     pub fn reset(&mut self) {
-        let size = self.system.size();
-        self.system = LinearSystem::new(size);
+        self.system = LinearSystem::new(self.size());
     }
 }
 
@@ -43,7 +46,7 @@ mod tests {
     fn create_equation() {
         let equation = FiniteVolumeEquation::new(5);
 
-        assert_eq!(equation.system().size(), 5);
+        assert_eq!(equation.size(), 5);
     }
 
     #[test]
@@ -52,6 +55,6 @@ mod tests {
 
         equation.reset();
 
-        assert_eq!(equation.system().size(), 8);
+        assert_eq!(equation.size(), 8);
     }
 }

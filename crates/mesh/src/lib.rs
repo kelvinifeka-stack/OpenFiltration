@@ -65,9 +65,11 @@ pub mod pressure_corrector;
 pub mod simple_loop;
 pub mod simple_driver;
 pub mod momentum_assembly;
+pub mod fvm_assembler;
 pub mod finite_volume_equation;
 pub mod scalar_transport;
-
+pub mod scalar_transport_assembler;
+pub mod energy_equation;
 
 pub mod node;
 pub mod edge;
@@ -149,5 +151,8 @@ pub use pressure_corrector::PressureCorrector;
 pub use simple_loop::SimpleLoop;
 pub use simple_driver::SimpleDriver;
 pub use momentum_assembly::MomentumAssembly;
+pub use fvm_assembler::FvmAssembler;
 pub use finite_volume_equation::FiniteVolumeEquation;
 pub use scalar_transport::ScalarTransportEquation;
+pub use scalar_transport_assembler::ScalarTransportAssembler;
+pub use energy_equation::EnergyEquation;
