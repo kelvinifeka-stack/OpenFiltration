@@ -80,6 +80,7 @@ pub mod interpolation_weights;
 pub mod source_assembler;
 pub mod face_interpolation_cache;
 pub mod face_flux_cache;
+pub mod coefficient_cache;
 
 pub mod node;
 pub mod edge;
@@ -176,3 +177,4 @@ pub use interpolation_weights::InterpolationWeights;
 pub use source_assembler::SourceAssembler;
 pub use face_interpolation_cache::FaceInterpolationCache;
 pub use face_flux_cache::FaceFluxCache;
+pub use coefficient_cache::CoefficientCache;
