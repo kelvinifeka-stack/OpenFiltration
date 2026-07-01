@@ -81,6 +81,7 @@ pub mod source_assembler;
 pub mod face_interpolation_cache;
 pub mod face_flux_cache;
 pub mod coefficient_cache;
+pub mod residual_engine;
 
 pub mod node;
 pub mod edge;
@@ -178,3 +179,4 @@ pub use source_assembler::SourceAssembler;
 pub use face_interpolation_cache::FaceInterpolationCache;
 pub use face_flux_cache::FaceFluxCache;
 pub use coefficient_cache::CoefficientCache;
+pub use residual_engine::ResidualEngine;
