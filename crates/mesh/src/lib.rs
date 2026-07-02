@@ -82,6 +82,9 @@ pub mod face_interpolation_cache;
 pub mod face_flux_cache;
 pub mod coefficient_cache;
 pub mod residual_engine;
+pub mod equation_pipeline;
+pub mod matrix_assembly_engine;
+pub mod solver_manager;
 
 pub mod node;
 pub mod edge;
@@ -180,3 +183,6 @@ pub use face_interpolation_cache::FaceInterpolationCache;
 pub use face_flux_cache::FaceFluxCache;
 pub use coefficient_cache::CoefficientCache;
 pub use residual_engine::ResidualEngine;
+pub use equation_pipeline::EquationPipeline;
+pub use matrix_assembly_engine::MatrixAssemblyEngine;
+pub use solver_manager::SolverManager;
